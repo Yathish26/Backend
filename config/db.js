@@ -1,6 +1,5 @@
 // config/db.js
 import mongoose from 'mongoose';
-dotenv.config();
 
 const dbURI = process.env.MONGODB_URI;
 
