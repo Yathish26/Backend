@@ -75,7 +75,7 @@ router.get('/user', auth, async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
-    res.json({ name: user.name, email: user.email, bio: user.bio, businessName: user.businessName, description: user.description, contactEmail: user.contactEmail, phoneNumber: user.phoneNumber });
+    res.json({ name: user.name, email: user.email, bio: user.bio, businessName: user.businessName, description: user.description, phoneNumber: user.phoneNumber });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
@@ -83,7 +83,7 @@ router.get('/user', auth, async (req, res) => {
 });
 
 router.put('/user', auth, async (req, res) => {
-  const { name, email, bio, businessName, description, contactEmail, phoneNumber } = req.body; // Extract fields to update
+  const { name, email, bio, businessName, description, phoneNumber } = req.body; // Extract fields to update
 
   try {
     const user = await User.findById(req.user.id); // Get the logged-in user
@@ -94,7 +94,6 @@ router.put('/user', auth, async (req, res) => {
     if (bio) user.bio = bio;
     if (businessName) user.businessName = businessName;
     if (description) user.description = description;
-    if (contactEmail) user.contactEmail = contactEmail;
     if (phoneNumber) user.phoneNumber = phoneNumber;
 
     await user.save(); // Save updated user information
