@@ -75,7 +75,7 @@ router.get('/user', auth, async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
-    res.json({ name: user.name, email: user.email, bio: user.bio, businessName: user.businessName, description: user.description, phoneNumber: user.phoneNumber });
+    res.json({ name: user.name, email: user.email, bio: user.bio, businessName: user.businessName, description: user.description, workcategory: user.workcategory, phoneNumber: user.phoneNumber });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
