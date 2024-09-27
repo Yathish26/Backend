@@ -12,13 +12,13 @@ connectDB();
 // Middleware for JSON parsing
 app.use(express.json());
 
-// app.use(cors());
+app.use(cors());
 //
 
-app.use(cors({
-    origin: 'https://hirearrive.vercel.app',
-    credentials: true
-}));
+// app.use(cors({
+//     origin: 'https://hirearrive.vercel.app',
+//     credentials: true
+// }));
 
 // Sample Route (for testing server)
 app.get('/', (req, res) => res.send('API is running'));
