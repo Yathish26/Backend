@@ -16,11 +16,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  bio: { 
+  bio: {
     type: String,
     default: '',
   },
-  businessName:{
+  businessName: {
     type: String,
     default: '',
   },
@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  workcategory: {
+    type: String,
+    default: '',
+  }
   phoneNumber: {
     type: String,
     default: '',

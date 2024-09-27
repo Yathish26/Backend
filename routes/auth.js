@@ -83,7 +83,7 @@ router.get('/user', auth, async (req, res) => {
 });
 
 router.put('/user', auth, async (req, res) => {
-  const { name, email, bio, businessName, description, phoneNumber } = req.body; // Extract fields to update
+  const { name, email, bio, businessName, description, workcategory, phoneNumber } = req.body; // Extract fields to update
 
   try {
     const user = await User.findById(req.user.id); // Get the logged-in user
@@ -94,6 +94,7 @@ router.put('/user', auth, async (req, res) => {
     if (bio) user.bio = bio;
     if (businessName) user.businessName = businessName;
     if (description) user.description = description;
+    if (workcategory) user.workcategory = workcategory
     if (phoneNumber) user.phoneNumber = phoneNumber;
 
     await user.save(); // Save updated user information
