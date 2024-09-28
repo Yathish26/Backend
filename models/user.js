@@ -32,6 +32,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  preferredLocation: {
+    type: String,
+    default: '',
+  },
   phoneNumber: {
     type: String,
     default: '',
