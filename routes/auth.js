@@ -21,11 +21,9 @@ router.post('/google-login', async (req, res) => {
     });
 
     const payload = ticket.getPayload();
-    console.log('Google Payload:', payload);
     const email = payload.email;
     const name = payload.name;
     const profileImage = payload.picture;
-    console.log('Profile Image URL:', profileImage);
 
     // Check if the user already exists in the database
     let user = await User.findOne({ email });
