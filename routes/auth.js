@@ -12,14 +12,14 @@ const JWT_SECRET = 'your_jwt_secret';
 // Google Login
 router.post('/google-login', async (req, res) => {
   const { token } = req.body; // The token sent from the client
-  
+
   try {
     // Verify the token with Google
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: '515733859331-52g64ecis313qso8ejdtbjhlcbohnfg2.apps.googleusercontent.com', // Replace with your Google client ID
     });
-    
+
     const payload = ticket.getPayload();
     const email = payload.email;
     const name = payload.name;
@@ -112,7 +112,17 @@ router.get('/user', auth, async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
-    res.json({ name: user.name, email: user.email, bio: user.bio, businessName: user.businessName, description: user.description, workcategory: user.workcategory, location: user.location, phoneNumber: user.phoneNumber, profileImage: user.profileImage });
+    res.json({
+      name: user.name,
+      email: user.email,
+      bio: user.bio,
+      businessName: user.businessName,
+      description: user.description,
+      workcategory: user.workcategory,
+      location: user.location,
+      phoneNumber: user.phoneNumber,
+      profileImage: user.profileImage,
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
@@ -134,6 +144,7 @@ router.put('/user', auth, async (req, res) => {
     if (workcategory) user.workcategory = workcategory;
     if (location) user.location = location;
     if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (profileImage) user.profileImage = profileImage;
 
     await user.save(); // Save updated user information
     res.json(user); // Return updated user data
