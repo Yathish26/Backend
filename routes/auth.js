@@ -17,13 +17,15 @@ router.post('/google-login', async (req, res) => {
     // Verify the token with Google
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: '515733859331-52g64ecis313qso8ejdtbjhlcbohnfg2.apps.googleusercontent.com', // Replace with your Google client ID
+      audience: '515733859331-52g64ecis313qso8ejdtbjhlcbohnfg2.apps.googleusercontent.com', //  Google client ID
     });
 
     const payload = ticket.getPayload();
+    console.log('Google Payload:', payload);
     const email = payload.email;
     const name = payload.name;
     const profileImage = payload.picture;
+    console.log('Profile Image URL:', profileImage);
 
     // Check if the user already exists in the database
     let user = await User.findOne({ email });
