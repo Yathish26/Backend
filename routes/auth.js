@@ -130,7 +130,7 @@ router.get('/user', auth, async (req, res) => {
 });
 
 router.put('/user', auth, async (req, res) => {
-  const { name, email, bio, businessName, description, workcategory, location, phoneNumber } = req.body; // Extract fields to update
+  const { name, email, bio, businessName, description, workcategory, location, phoneNumber, profileImage } = req.body; // Extract fields to update
 
   try {
     const user = await User.findById(req.user.id); // Get the logged-in user
