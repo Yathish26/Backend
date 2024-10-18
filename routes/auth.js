@@ -29,7 +29,7 @@ router.post('/google-login', async (req, res) => {
     let user = await User.findOne({ email });
     if (!user) {
       // If user does not exist, create a new user
-      user = new User({ name, email, password: 'google-auth-password', profileImage }); // A dummy password
+      user = new User({ name, email, password: 'google-auth-password', profileImage }); 
       await user.save();
     }
 
