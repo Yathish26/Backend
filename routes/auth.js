@@ -2,9 +2,45 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
+import { OAuth2Client } from 'google-auth-library';
+
+const client = new OAuth2Client('515733859331-52g64ecis313qso8ejdtbjhlcbohnfg2.apps.googleusercontent.com');
 const router = express.Router();
 
 const JWT_SECRET = 'your_jwt_secret';
+
+// Google Login
+router.post('/google-login', async (req, res) => {
+  const { token } = req.body; // The token sent from the client
+  
+  try {
+    // Verify the token with Google
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: '515733859331-52g64ecis313qso8ejdtbjhlcbohnfg2.apps.googleusercontent.com', // Replace with your Google client ID
+    });
+    
+    const payload = ticket.getPayload();
+    const email = payload.email;
+    const name = payload.name;
+
+    // Check if the user already exists in the database
+    let user = await User.findOne({ email });
+    if (!user) {
+      // If user does not exist, create a new user
+      user = new User({ name, email, password: 'google-auth-password' }); // A dummy password
+      await user.save();
+    }
+
+    const userPayload = { user: { id: user.id } };
+    const jwtToken = jwt.sign(userPayload, JWT_SECRET, { expiresIn: '7d' });
+
+    res.json({ token: jwtToken });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
 
 // Middleware to authenticate token
 const auth = (req, res, next) => {
