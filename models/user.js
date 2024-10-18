@@ -40,6 +40,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  profileImage: {
+    type: String,
+    default: '',
+  }
 });
 
 // Pre-save hook to hash passwords before saving to DB
