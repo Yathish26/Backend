@@ -23,12 +23,13 @@ router.post('/google-login', async (req, res) => {
     const payload = ticket.getPayload();
     const email = payload.email;
     const name = payload.name;
+    const profileImage = payload.picture;
 
     // Check if the user already exists in the database
     let user = await User.findOne({ email });
     if (!user) {
       // If user does not exist, create a new user
-      user = new User({ name, email, password: 'google-auth-password' }); // A dummy password
+      user = new User({ name, email, password: 'google-auth-password', profileImage, }); // A dummy password
       await user.save();
     }
 
